@@ -1,0 +1,13 @@
+body {
+    color: white;
+    background-color: teal;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+#start-form {
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+}

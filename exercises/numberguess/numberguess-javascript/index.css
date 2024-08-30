@@ -2,3 +2,7 @@ body {
     color: white;
     background-color: teal;
 }
+
+.hidden {
+    opacity: 0;
+}
