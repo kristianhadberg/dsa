@@ -15,8 +15,11 @@
         </form>
         
         <div id="game">
-
-            <ol id="guesses"></ol>
+            
+            <div>
+                <span id="guess-counter"></span>
+                <ol id="guesses"></ol>
+            </div>
 
             <div id="game-buttons" class="hidden">
                 <button id="low">Too low</button>
@@ -25,7 +28,7 @@
             </div>
 
             <div id="win" class="hidden">
-                <h2>I Win!</h2>
+                <h2 id="win-text">I Win!</h2>
                 <button id="reset">Reset</button>
             </div>
         </div>

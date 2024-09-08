@@ -2,6 +2,9 @@ window.addEventListener("load", start);
 
 let secretNumber;
 let guesses = [];
+let min = 1;
+let mid;
+let max = 100;
 
 function start() {
     const form = document.querySelector("#start-form");
@@ -42,28 +45,53 @@ function toggleGameButtons() {
 }
 
 function guess() {
-    const guess = generateRandomNumber();
+    const guess = binarySearch();
+
+    if (min >= max) {
+        addGuessToList(guess);
+        renderGuesses(guess);
+        correctGuess(true);
+        return;
+    }
+
     addGuessToList(guess);
     renderGuesses(guess);
 }
 
 function lowGuess() {
     addCorrectnessToGuess("Guess was too low");
+    min = mid + 1;
     guess();
 }
 
 function highGuess() {
     addCorrectnessToGuess("Guess was too high");
+    max = mid - 1;
     guess();
 }
 
-function correctGuess() {
-    addCorrectnessToGuess("Guess was correct.");
+function correctGuess(lastRemainingNumber) {
+    let correctText = lastRemainingNumber ? "Guess was correct. (Last remaining number)" : "Guess was correct.";
+    addCorrectnessToGuess(correctText);
+
     renderGuesses();
     toggleGameButtons();
 
     const winDiv = document.querySelector("#win");
     winDiv.classList.remove("hidden");
+
+    const winText = document.querySelector("#win-text");
+    let text;
+    if (guesses.length < 3) {
+        text = "Yay!";
+    }
+    if (guesses.length < 5) {
+        text = "Yay!";
+    } else {
+        text = "Booo";
+    }
+
+    winText.innerHTML = text;
 
     const resetButton = document.querySelector("#reset");
     resetButton.addEventListener("click", resetGame);
@@ -91,10 +119,15 @@ function renderGuesses() {
         li.innerHTML = `I guessed ${g.guess} - ${g.correctness}`;
         guessesListElement.appendChild(li);
     });
+
+    const guessCounterElement = document.querySelector("#guess-counter");
+    guessCounterElement.innerHTML = `Number of guesses: ${guesses.length}`;
 }
 
 function resetGame() {
     guesses = [];
+    min = 1;
+    max = 100;
     document.querySelector("#guesses").innerHTML = "";
     toggleGameButtons();
 
@@ -102,7 +135,11 @@ function resetGame() {
     winDiv.classList.add("hidden");
 }
 
-function generateRandomNumber() {
-    const max = 100;
-    return Math.floor(Math.random() * max);
+function binarySearch() {
+    mid = Math.floor((max + min) / 2);
+    return mid;
+}
+
+function compare(x, y) {
+    return x - y;
 }
