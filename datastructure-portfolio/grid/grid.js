@@ -16,13 +16,16 @@ export default class Grid {
     }
 
     set(row, col, value) {
-        this.#grid[row][col] = value;
+        const input = this.parseInput(row, col, value);
+        this.#grid[input.row][input.col] = input.value;
     }
 
     get(row, col) {
         // TODO: temp solution
+        const input = this.parseInput(row, col);
+
         if (row >= 0) {
-            return this.#grid[row][col];
+            return this.#grid[input.row][input.col];
         }
     }
 
@@ -32,10 +35,13 @@ export default class Grid {
 
     neighbours(row, col) {
         let neighbours = [];
-        for (let r = row - 1; r <= row + 1; r++) {
-            for (let c = col - 1; c <= col + 1; c++) {
+        const input = this.parseInput(row, col);
+        console.log(input);
+
+        for (let r = input.row - 1; r <= input.row + 1; r++) {
+            for (let c = input.col - 1; c <= input.col + 1; c++) {
                 // ignore the chosen cell in the grid
-                if (r == row && c == col) {
+                if (r == input.row && c == input.col) {
                     console.log("chosen cell");
                     continue;
                 }
@@ -45,7 +51,7 @@ export default class Grid {
                     continue;
                 }
 
-                const cell = this.createCellObject(row, col, value);
+                const cell = this.createCellObject(input.row, input.col, value);
                 neighbours.push(cell);
             }
         }
@@ -54,11 +60,12 @@ export default class Grid {
 
     neighbourValues(row, col) {
         let neighbourValues = [];
+        const input = this.parseInput(row, col);
 
-        for (let r = row - 1; r <= row + 1; r++) {
-            for (let c = col - 1; c <= col + 1; c++) {
+        for (let r = input.row - 1; r <= input.row + 1; r++) {
+            for (let c = input.col - 1; c <= input.col + 1; c++) {
                 // ignore the chosen cell in the grid
-                if (r == row && c == col) {
+                if (r == input.row && c == input.col) {
                     console.log("chosen cell");
                     continue;
                 }
@@ -75,76 +82,88 @@ export default class Grid {
     }
 
     nextInRow(row, col) {
-        const value = this.#grid[row][col + 1];
+        const input = this.parseInput(row, col);
+
+        const value = this.#grid[input.row][input.col + 1];
 
         if (value == undefined) {
             console.log("Next row is undefined");
             return;
         }
 
-        return this.createCellObject(row, col, value);
+        return this.createCellObject(input.row, input.col, value);
     }
 
     nextInCol(row, col) {
-        const value = this.#grid[row + 1][col];
+        const input = this.parseInput(row, col);
+
+        const value = this.#grid[input.row + 1][input.col];
 
         if (value == undefined) {
             console.log("Next col is undefined");
             return;
         }
 
-        return this.createCellObject(row, col, value);
+        return this.createCellObject(input.row, input.col, value);
     }
 
     north(row, col) {
-        if (row == 0) {
+        const input = this.parseInput(row, col);
+
+        if (input.row == 0) {
             return;
         }
 
-        const value = this.#grid[row - 1][col];
+        const value = this.#grid[input.row - 1][input.col];
 
         if (value == undefined) {
             console.log("North is undefined");
             return;
         }
 
-        return this.createCellObject(row, col, value);
+        return this.createCellObject(input.row, input.col, value);
     }
 
     east(row, col) {
-        const value = this.#grid[row][col + 1];
+        const input = this.parseInput(row, col);
+
+        const value = this.#grid[input.row][input.col + 1];
 
         if (value == undefined) {
             console.log("East is undefined");
             return;
         }
 
-        return this.createCellObject(row, col, value);
+        return this.createCellObject(input.row, input.col, value);
     }
 
     south(row, col) {
-        if (row == this.#rows - 1) {
+        const input = this.parseInput(row, col);
+
+        if (input.row == this.#rows - 1) {
             return;
         }
 
-        const value = this.#grid[row + 1][col];
+        const value = this.#grid[input.row + 1][input.col];
 
         if (value == undefined) {
             console.log("South is undefined");
             return;
         }
 
-        return this.createCellObject(row, col, value);
+        return this.createCellObject(input.row, input.col, value);
     }
+
     west(row, col) {
-        const value = this.#grid[row][col - 1];
+        const input = this.parseInput(row, col);
+        const value = this.#grid[input.row][input.col - 1];
 
         if (value == undefined) {
             console.log("West is undefined");
             return;
         }
 
-        return this.createCellObject(row, col, value);
+        return this.createCellObject(input.row, input.col, value);
     }
 
     fill(value) {
@@ -165,6 +184,14 @@ export default class Grid {
 
     size() {
         return this.#rows * this.#cols;
+    }
+
+    parseInput(a1, a2, a3) {
+        if (typeof a1 === "object" && a1 !== null) {
+            return this.createCellObject(a1.row, a1.col, a2);
+        }
+
+        return this.createCellObject(a1, a2, a3);
     }
 
     createCellObject(row, col, value) {
