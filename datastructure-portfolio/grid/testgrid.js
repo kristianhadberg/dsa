@@ -8,5 +8,10 @@ const grid = new Grid(ROWS, COLS);
 // console.log(grid.get(0, 0));
 // console.log(grid.nextInRow(0, 0));
 // grid.get(-1, -1);
-const neighbours = grid.neighbours(1, 0);
-console.log(neighbours);
+// const neighbours = grid.neighbours(1, 0);
+// console.log(neighbours);
+
+grid.fill(5);
+
+console.log(grid.get(0, 0));
+console.log(grid.get(10, 5));

@@ -147,6 +147,14 @@ export default class Grid {
         return this.createCellObject(row, col, value);
     }
 
+    fill(value) {
+        for (let row = 0; row < this.#rows; row++) {
+            for (let col = 0; col < this.#cols; col++) {
+                this.set(row, col, value);
+            }
+        }
+    }
+
     rows() {
         return this.#rows;
     }
