@@ -45,11 +45,7 @@ export default class Grid {
                     continue;
                 }
 
-                const cell = {
-                    row: r,
-                    col: c,
-                    value: value,
-                };
+                const cell = this.createCellObject(row, col, value);
                 neighbours.push(cell);
             }
         }
@@ -86,11 +82,7 @@ export default class Grid {
             return;
         }
 
-        return {
-            row: row,
-            col: col,
-            value: value,
-        };
+        return this.createCellObject(row, col, value);
     }
 
     nextInCol(row, col) {
@@ -101,11 +93,7 @@ export default class Grid {
             return;
         }
 
-        return {
-            row: row,
-            col: col,
-            value: value,
-        };
+        return this.createCellObject(row, col, value);
     }
 
     north(row, col) {
@@ -120,11 +108,7 @@ export default class Grid {
             return;
         }
 
-        return {
-            row: row,
-            col: col,
-            value: value,
-        };
+        return this.createCellObject(row, col, value);
     }
 
     east(row, col) {
@@ -135,11 +119,7 @@ export default class Grid {
             return;
         }
 
-        return {
-            row: row,
-            col: col,
-            value: value,
-        };
+        return this.createCellObject(row, col, value);
     }
 
     south(row, col) {
@@ -154,11 +134,7 @@ export default class Grid {
             return;
         }
 
-        return {
-            row: row,
-            col: col,
-            value: value,
-        };
+        return this.createCellObject(row, col, value);
     }
     west(row, col) {
         const value = this.#grid[row][col - 1];
@@ -168,11 +144,7 @@ export default class Grid {
             return;
         }
 
-        return {
-            row: row,
-            col: col,
-            value: value,
-        };
+        return this.createCellObject(row, col, value);
     }
 
     rows() {
@@ -185,5 +157,15 @@ export default class Grid {
 
     size() {
         return this.#rows * this.#cols;
+    }
+
+    createCellObject(row, col, value) {
+        const object = {
+            row: row,
+            col: col,
+            value: value,
+        };
+
+        return object;
     }
 }
