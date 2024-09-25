@@ -1,0 +1,17 @@
+#board {
+    --ROWS: 0;
+
+    display: grid;
+    grid-template-columns: repeat(var(--ROWS), max-content);
+    gap: 0.1em;
+}
+
+.cell {
+    width: 20px;
+    height: 20px;
+    /* background-color: black; */
+}
+
+.active-cell {
+    background-color: black;
+}
