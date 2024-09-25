@@ -24,7 +24,7 @@ export default class Grid {
         // TODO: temp solution
         const input = this.parseInput(row, col);
 
-        if (row >= 0) {
+        if (row >= 0 && row < this.#rows) {
             return this.#grid[input.row][input.col];
         }
     }
@@ -36,7 +36,6 @@ export default class Grid {
     neighbours(row, col) {
         let neighbours = [];
         const input = this.parseInput(row, col);
-        console.log(input);
 
         for (let r = input.row - 1; r <= input.row + 1; r++) {
             for (let c = input.col - 1; c <= input.col + 1; c++) {
@@ -51,7 +50,7 @@ export default class Grid {
                     continue;
                 }
 
-                const cell = this.createCellObject(input.row, input.col, value);
+                const cell = this.createCellObject(r, c, value);
                 neighbours.push(cell);
             }
         }
