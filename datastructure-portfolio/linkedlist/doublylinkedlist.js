@@ -59,14 +59,14 @@ export class DoublyLinkedList {
       return;
     }
 
-    // if head exists but tail is null
+    // if theres one element in the list
     if (this.tail == null && this.head != null) {
       node.prev = this.head;
       this.head.next = node;
       this.tail = node;
     }
 
-    // if head exists
+    // more than two elements in the list
     if (this.tail != null) {
       const prevTail = this.tail;
       prevTail.next = node;
@@ -109,7 +109,6 @@ export class DoublyLinkedList {
 
   removeFirst() {
     let removedNode;
-    // if head has no next?
     if (this.head == null) {
       return null;
     }
@@ -129,7 +128,6 @@ export class DoublyLinkedList {
   removeLast() {
     let removedNode;
 
-    // if head is null
     if (this.head == null && this.tail) {
       return null;
     }
