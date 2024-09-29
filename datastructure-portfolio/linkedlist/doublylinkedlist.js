@@ -64,6 +64,7 @@ export class DoublyLinkedList {
       node.prev = this.head;
       this.head.next = node;
       this.tail = node;
+      return;
     }
 
     // more than two elements in the list
@@ -106,6 +107,41 @@ export class DoublyLinkedList {
       current = current.next;
     }
   }
+
+  insertBeforeNode(newNode, existingNode) {
+    let current = this.head;
+    let previousNode;
+
+    while (current != null) {
+      // atleast 2 elements
+      if (current == existingNode) {
+        // if trying to insert before head
+        if (existingNode == this.head) {
+          const currentHead = this.head;
+          newNode.next = currentHead;
+          this.makeNodeHead(newNode);
+
+          currentHead.prev = newNode;
+          this.makeNodeTail(currentHead);
+          return;
+        }
+
+        if (this.head && this.tail) {
+          newNode.prev = previousNode;
+          newNode.next = existingNode;
+          previousNode.next = newNode;
+          existingNode.prev = newNode;
+          return;
+        } else {
+          console.log("not it");
+        }
+      }
+      previousNode = current;
+      current = current.next;
+    }
+  }
+
+  insertAfterNode(newNode, existingNode) {}
 
   removeFirst() {
     let removedNode;
