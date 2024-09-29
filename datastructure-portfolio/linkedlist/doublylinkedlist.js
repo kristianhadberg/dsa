@@ -26,10 +26,15 @@ export class DoublyLinkedList {
   }
 
   last() {
-    let last;
-    this.head == this.tail ? (last = this.head) : (last = this.tail);
+    let lastNode;
 
-    return last;
+    if (this.head && !this.tail) {
+      lastNode = this.head;
+    } else {
+      lastNode = this.tail;
+    }
+
+    return lastNode;
   }
 
   addNodeFirst(node) {

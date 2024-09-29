@@ -16,9 +16,9 @@ console.log(dlist.tail); */
 //const res = dlist.removeLast();
 //dlist.dumpList();
 //console.log(dlist.removeNode(node2));
-dlist.removeNode(node);
-dlist.removeNode(node2);
+//dlist.removeNode(node);
+//dlist.removeNode(node2);
 //dlist.removeNode(node3);
-dlist.dumpList();
-console.log(dlist.tail);
+//dlist.dumpList();
+console.log(dlist.last());
 //console.log(dlist.tail);
