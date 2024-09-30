@@ -1,8 +1,8 @@
 #board {
-    --ROWS: 0;
+    --COLS: 0;
 
     display: grid;
-    grid-template-columns: repeat(var(--ROWS), max-content);
+    grid-template-columns: repeat(var(--COLS), max-content);
     gap: 0.1em;
 }
 

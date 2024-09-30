@@ -8,7 +8,7 @@ function init() {
 
 function createBoard() {
     const board = document.querySelector("#board");
-    board.style.setProperty("--ROWS", ROWS);
+    board.style.setProperty("--COLS", COLS);
 
     for (let row = 0; row < ROWS; row++) {
         for (let col = 0; col < COLS; col++) {

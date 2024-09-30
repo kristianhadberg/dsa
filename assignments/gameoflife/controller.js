@@ -9,7 +9,7 @@ function start() {
 
     window.view = view;
     view.createBoard();
-    setInterval(gameLoop, 1000);
+    setInterval(gameLoop, 500);
 }
 
 function gameLoop() {
