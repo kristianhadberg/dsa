@@ -1,0 +1,33 @@
+body {
+    background-color: #232d1f;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#board {
+    --ROWS: 0;
+    --COLS: 0;
+
+    display: grid;
+    grid-template-rows: repeat(var(--ROWS), max-content);
+    grid-template-columns: repeat(var(--COLS), max-content);
+    justify-content: center;
+
+    width: 100%;
+}
+
+
+.cell {
+    min-width: 20px;
+    min-height: 20px;
+    border: 0.1px solid lavender;
+}
+
+.player {
+    min-width: 20px;
+    min-height: 20px;
+    background-color: red;
+}
