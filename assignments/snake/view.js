@@ -1,5 +1,5 @@
 export { createBoard, displayBoard };
-import { ROW_SIZE, COL_SIZE } from "./controller.js";
+import { ROW_SIZE, COL_SIZE, direction } from "./controller.js";
 import { readFromCell } from "./model.js";
 
 function createBoard() {
@@ -24,13 +24,68 @@ function displayBoard() {
 
       switch (readFromCell(row, col)) {
         case 0:
-          cells[index].classList.remove("player", "goal");
+          cells[index].classList.remove(
+            "player",
+            "food",
+            "snake-head",
+            "snake-tail"
+          );
           break;
-        case 1: // Note: doesn't remove goal if previously set
+        case 1:
+          cells[index].classList.remove("snake-tail");
+          cells[index].classList.remove("snake-head");
           cells[index].classList.add("player");
+
           break;
-        case 2: // Note: doesn't remove player if previously set
-          cells[index].classList.add("goal");
+        case 2:
+          cells[index].classList.add("food");
+          break;
+        case 3:
+          cells[index].classList.remove("player");
+          cells[index].classList.remove("snake-tail");
+          cells[index].classList.add("snake-head");
+          break;
+        case 4:
+          cells[index].classList.remove("player");
+          cells[index].classList.remove("snake-head");
+          cells[index].classList.add("snake-tail");
+      }
+
+      /* 
+        questionable code to manage sprite direction
+      */
+      switch (direction) {
+        case "right":
+          cells[index].classList.remove(
+            "direction-down",
+            "direction-left",
+            "direction-up"
+          );
+          cells[index].classList.add("direction-right");
+          break;
+        case "down":
+          cells[index].classList.remove(
+            "direction-right",
+            "direction-left",
+            "direction-up"
+          );
+          cells[index].classList.add("direction-down");
+          break;
+        case "left":
+          cells[index].classList.remove(
+            "direction-right",
+            "direction-down",
+            "direction-up"
+          );
+          cells[index].classList.add("direction-left");
+          break;
+        case "up":
+          cells[index].classList.remove(
+            "direction-right",
+            "direction-down",
+            "direction-left"
+          );
+          cells[index].classList.add("direction-up");
           break;
       }
     }

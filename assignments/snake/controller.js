@@ -3,7 +3,8 @@ import * as model from "./model.js";
 
 export const ROW_SIZE = 20;
 export const COL_SIZE = 30;
-let direction = "left";
+let gameIsRunning = true;
+export let direction = "right";
 
 start();
 
@@ -15,12 +16,12 @@ function start() {
 }
 
 function tick() {
-  setTimeout(tick, 100);
+  if (gameIsRunning) {
+    setTimeout(tick, 100);
+  }
 
-  const queue = model.getQueue();
-
-  // loop through queue
-  let current = queue.head;
+  // loop through queue to remove player sprite
+  let current = model.getHead();
 
   while (current != null) {
     model.writeToCell(current.data.row, current.data.col, 0);
@@ -28,12 +29,11 @@ function tick() {
     current = current.next;
   }
 
+  const queueLength = model.getLength();
   const head = {
-    row: model.getHead().data.row,
-    col: model.getHead().data.col,
+    row: model.getTail().data.row,
+    col: model.getTail().data.col,
   };
-
-  console.log(head);
 
   model.dequeue();
 
@@ -68,16 +68,79 @@ function tick() {
 
   model.enqueue(head);
 
-  // loop through queue
-  current = queue.head;
+  // loop through queue to re-add player sprite
+  current = model.getHead();
 
   while (current != null) {
-    model.writeToCell(current.data.row, current.data.col, 1);
+    const tail = model.getTail(); // snake head
+    const head = model.getHead(); // snake tail
+    if (
+      current.data.row == tail.data.row &&
+      current.data.col == tail.data.col
+    ) {
+      model.writeToCell(current.data.row, current.data.col, 3); // if current is last element (snake head)
+    } else if (
+      current.data.row == head.data.row &&
+      current.data.col == head.data.col
+    ) {
+      model.writeToCell(current.data.row, current.data.col, 4); // if current is first element (snake tail)
+    } else {
+      model.writeToCell(current.data.row, current.data.col, 1); // if current is body
+    }
 
     current = current.next;
   }
 
+  // Detect if head collides with the rest of the body
+  current = model.getHead();
+  while (current != null) {
+    // make sure that we don't check that head collides with itself
+    if (current != model.getQueueNode(queueLength - 1)) {
+      if (current.data.row == head.row && current.data.col == head.col) {
+        gameOver();
+      }
+    }
+
+    current = current.next;
+  }
+
+  // Detect food colission
+  const food = model.getFood();
+  if (food) {
+    if (head.row == food.row && head.col == food.col) {
+      eatFoodBasedOnDirection(model);
+    }
+  }
+
+  if (food == null) {
+    model.spawnFood();
+    /* model.spawnFood(); */
+  }
+
   view.displayBoard();
+}
+
+/* 
+  Function to check which direction player is going when eating food
+*/
+function eatFoodBasedOnDirection(model) {
+  const queueLength = model.getLength();
+
+  if (direction == "left") {
+    model.eatFood(model.getTail().data.row, model.getTail().data.col - 1);
+  }
+
+  if (direction == "right") {
+    model.eatFood(model.getTail().data.row, model.getTail().data.col + 1);
+  }
+
+  if (direction == "up") {
+    model.eatFood(model.getTail().data.row - 1, model.getTail().data.col);
+  }
+
+  if (direction == "down") {
+    model.eatFood(model.getTail().data.row + 1, model.getTail().data.col);
+  }
 }
 
 function setDirection(dir) {
@@ -88,16 +151,63 @@ function checkPlayerInput(e) {
   const key = e.key;
   switch (key) {
     case "ArrowLeft":
-      setDirection("left");
+      if (direction != "right") {
+        setDirection("left");
+      }
+
       break;
     case "ArrowUp":
-      setDirection("up");
+      if (direction != "down") {
+        setDirection("up");
+      }
       break;
     case "ArrowRight":
-      setDirection("right");
+      if (direction != "left") {
+        setDirection("right");
+      }
       break;
     case "ArrowDown":
-      setDirection("down");
+      if (direction != "up") {
+        setDirection("down");
+      }
       break;
   }
+}
+
+function gameOver() {
+  gameIsRunning = false;
+
+  const gameOverElement = document.querySelector(".gameover-container");
+  gameOverElement.classList.remove("hidden");
+
+  const restarButton = document.querySelector(".restart");
+  restarButton.addEventListener("click", restartGame);
+}
+
+function restartGame() {
+  // remove overlay
+  const gameOverElement = document.querySelector(".gameover-container");
+  gameOverElement.classList.add("hidden");
+
+  // loop through queue to remove player sprite
+  let current = model.getHead();
+
+  while (current != null) {
+    model.writeToCell(current.data.row, current.data.col, 0);
+
+    current = current.next;
+  }
+
+  // reset gameboard and state
+  const board = document.querySelector("#board");
+  board.innerHTML = "";
+  setDirection("right");
+
+  const food = model.getFood();
+  model.writeToCell(food.row, food.col, 0);
+  model.clearFood();
+
+  // restart the game
+  gameIsRunning = true;
+  start();
 }

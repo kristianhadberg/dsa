@@ -7,6 +7,10 @@ body {
     flex-wrap: wrap;
 }
 
+h1 {
+    color: white;
+}
+
 #board {
     --ROWS: 0;
     --COLS: 0;
@@ -15,7 +19,6 @@ body {
     grid-template-rows: repeat(var(--ROWS), max-content);
     grid-template-columns: repeat(var(--COLS), max-content);
     justify-content: center;
-
     width: 100%;
 }
 
@@ -24,10 +27,100 @@ body {
     min-width: 20px;
     min-height: 20px;
     border: 0.1px solid lavender;
+    
 }
 
 .player {
     min-width: 20px;
     min-height: 20px;
     background-color: red;
+    background-image: url("./sprites/snake-body.png");
+
+}
+
+.snake-tail {
+    background-image: url("./sprites/snake-tail-right.png");
+}
+
+
+.snake-body {
+    background-image: url("./sprites/snake-body.png");
+}
+
+.snake-head {
+    background-image: url("./sprites/snake-head-right.png");
+}
+
+.direction-right {
+    transform: rotate(0deg)
+}
+
+.direction-down {
+    transform: rotate(90deg)
+}
+
+.direction-left {
+    transform: rotate(180deg)
+}
+
+.direction-up {
+    transform: rotate(270deg)
+}
+
+
+
+
+.food {
+    background-color: yellow;
+    min-width: 20px;
+    min-height: 20px;
+}
+
+
+
+
+
+
+.lose-text {
+    font-size: 3em;
+    text-align: center;
+    color: red;
+    width: 100%;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.gameover-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.gameover {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.restart {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
 }
