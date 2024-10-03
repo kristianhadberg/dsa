@@ -203,6 +203,9 @@ function restartGame() {
   board.innerHTML = "";
   setDirection("right");
 
+  const restarButton = document.querySelector(".restart");
+  restarButton.removeEventListener("click", restartGame);
+
   const food = model.getFood();
   model.writeToCell(food.row, food.col, 0);
   model.clearFood();
