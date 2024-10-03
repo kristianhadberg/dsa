@@ -22,12 +22,10 @@ h1 {
     width: 100%;
 }
 
-
 .cell {
     min-width: 20px;
     min-height: 20px;
     border: 0.1px solid lavender;
-    
 }
 
 .player {
@@ -35,13 +33,11 @@ h1 {
     min-height: 20px;
     background-color: red;
     background-image: url("./sprites/snake-body.png");
-
 }
 
 .snake-tail {
     background-image: url("./sprites/snake-tail-right.png");
 }
-
 
 .snake-body {
     background-image: url("./sprites/snake-body.png");
@@ -52,34 +48,26 @@ h1 {
 }
 
 .direction-right {
-    transform: rotate(0deg)
+    transform: rotate(0deg);
 }
 
 .direction-down {
-    transform: rotate(90deg)
+    transform: rotate(90deg);
 }
 
 .direction-left {
-    transform: rotate(180deg)
+    transform: rotate(180deg);
 }
 
 .direction-up {
-    transform: rotate(270deg)
+    transform: rotate(270deg);
 }
-
-
-
 
 .food {
     background-color: yellow;
     min-width: 20px;
     min-height: 20px;
 }
-
-
-
-
-
 
 .lose-text {
     font-size: 3em;
@@ -115,7 +103,7 @@ h1 {
 }
 
 .restart {
-    background-color: #4CAF50;
+    background-color: #4caf50;
     color: white;
     padding: 10px 20px;
     font-size: 1.2em;
