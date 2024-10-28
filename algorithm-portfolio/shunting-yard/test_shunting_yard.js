@@ -1,4 +1,5 @@
-import shuntingYard from "./shunting_yard.js";
+//import shuntingYard from "./shunting_yard.js";
+import shuntingYard from "./shunting_yard2.js";
 
 shuntingYard("2 + 3 * 4");
 shuntingYard("3 + 4 * ( 5 - 2 )");

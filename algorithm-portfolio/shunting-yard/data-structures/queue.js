@@ -45,6 +45,7 @@ export default class Queue {
     // if queue length is 2 (queue only has head and tail)
     if (this.length == 2) {
       const currentTail = this.tail;
+      const currentHead = this.head;
 
       this.head = currentTail;
 
@@ -52,7 +53,7 @@ export default class Queue {
       this.tail = null;
 
       this.length--;
-      return this.head;
+      return currentHead;
     }
 
     // if queue length is greater than 2
@@ -60,7 +61,7 @@ export default class Queue {
     this.head = currentHead.next;
 
     this.length--;
-    return this.head;
+    return currentHead;
   }
 
   size() {
