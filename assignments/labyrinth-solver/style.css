@@ -1,0 +1,38 @@
+
+#labyrinth {
+    --COLS: 0;
+
+    display: grid;
+    grid-template-columns: repeat(var(--COLS), max-content);
+}
+
+.cell {
+    height: 40px;
+    width: 40px;
+    background-color: gray;
+    border: 1px solid gray;
+}
+
+.start {
+    background-color: green;
+}
+
+.goal {
+    background-color: yellow;
+}
+
+.wall-north {
+    border-top: 1px solid black;
+}
+
+.wall-east {
+    border-right: 1px solid black;
+}
+
+.wall-south {
+    border-bottom: 1px solid black;
+}
+
+.wall-west {
+    border-left: 1px solid black;
+}
