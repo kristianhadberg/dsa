@@ -13,6 +13,10 @@
     border: 1px solid gray;
 }
 
+.route {
+    background-color: lightblue;
+}
+
 .start {
     background-color: green;
 }
@@ -20,6 +24,7 @@
 .goal {
     background-color: yellow;
 }
+
 
 .wall-north {
     border-top: 1px solid black;
