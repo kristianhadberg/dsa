@@ -41,6 +41,8 @@ export function insertionSortSwap(arr) {
         if (arr[keyIndex] < arr[j]) {
           swap(keyIndex, j);
           keyIndex = j;
+        } else {
+          break; // break the loop when elements no longer need to be swapped
         }
       }
     }
