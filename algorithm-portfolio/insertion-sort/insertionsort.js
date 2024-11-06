@@ -1,7 +1,7 @@
 export function insertionSortShift(arr) {
   let iterations = 0;
 
-  for (let i = 0; i < arr.length; i++) {
+  for (let i = 0; i < arr.length - 1; i++) {
     iterations++;
     if (arr[i] > arr[i + 1]) {
       const key = arr[i + 1];
@@ -23,6 +23,35 @@ export function insertionSortShift(arr) {
       }
     }
   }
+  console.log(`iterations: ${iterations}`);
+  return arr;
+}
+
+export function insertionSortSwap(arr) {
+  let iterations = 0;
+
+  for (let i = 0; i < arr.length - 1; i++) {
+    iterations++;
+
+    if (arr[i] > arr[i + 1]) {
+      let keyIndex = i + 1;
+
+      for (let j = i; j >= 0; j--) {
+        iterations++;
+        if (arr[keyIndex] < arr[j]) {
+          swap(keyIndex, j);
+          keyIndex = j;
+        }
+      }
+    }
+  }
+
+  function swap(indexA, indexB) {
+    const temp = arr[indexA];
+    arr[indexA] = arr[indexB];
+    arr[indexB] = temp;
+  }
+
   console.log(`iterations: ${iterations}`);
   return arr;
 }
