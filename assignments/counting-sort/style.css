@@ -1,7 +1,16 @@
+body {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 #arrays {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    width: 100%;
 }
 
 .array {
@@ -21,4 +30,8 @@
 .index {
     color: black;
     text-align: center;
+}
+
+.highlighted-pillar {
+    background-color: green;
 }
