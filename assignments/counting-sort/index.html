@@ -7,13 +7,67 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Counting sort visualisation</h1>
+
+    <div style="margin-bottom: 50px">
+        <h1>Counting sort visualisation</h1>
+        
+        <form id="array-form">
+            <span>Enter an array of numbers in this format: 5, 4, 5, 1... and click start!</span>
+            <input type="text" name="array" value="5, 4, 5, 1, 0, 1, 3, 1, 8, 9, 12, 16, 10, 12, 10, 5" />
+            <input type="submit" value="Start"></input>
+        </form>
+        <form id="tick-form">
+            <span>Change tickrate, default is 500ms</span>
+            <input type="number" name="tick" placeholder="500" />
+            <input type="submit" value="Change"></input>
+        </form>
+        <p>note: you might need to zoom out a little in order to see the entire visualisation simultaneously</p>
+    </div>
 
     <div id="arrays">
-        <div id="input-array"></div>
-        <div id="count-array"></div>
-        <div id="cumulative-array"></div>
-        <div id="output-array"></div>
+        <div id="input-array" class="wrapper hidden">
+            <div class="array-wrapper">
+                <div class="array"></div>
+                <div class="array-name">
+                    <p>Input array</p>
+                </div>
+            </div>
+            
+            <p class="alg-info">1. Loop through the input array, count each appearance of a number and insert it into the 'count array'</p>
+        </div>
+        <div id="count-array" class="wrapper hidden">
+            <div class="array-wrapper">
+                <div class="array"></div>
+                <div class="array-name">
+                    <p>Count array</p>
+                </div>
+            </div>
+        </div>
+        <div id="cumulative-array" class="wrapper hidden">
+            <div class="array-wrapper">
+                <div class="array"></div>
+                <div class="array-name">
+                    <p>Cumulative array</p>
+                </div>
+            </div>
+            <p class="alg-info">
+                2. Change the count array into a 'cumulative sum' array. This is done by looping through the array, starting at index 1,
+                and adding the value of the element at the previous index to value of the element at the current index ( arr[i] = arr[i - 1] + arr[i] ).
+
+                This array is now used to keep track of which indexes the elements belong at in the final array.
+                </p>  
+        </div>
+        <div id="output-array" class="wrapper hidden">
+            <div class="array-wrapper ">
+                <div class="array"></div>
+                <div class="array-name">
+                    <p>Output array</p>
+                </div>
+            </div>
+            <p class="alg-info">3. Loop through the input array in reverse order to keep the sorting stable. Insert the value in the output array by
+                 checking which index it fits in the cumulative array and decrement the cumulative array.
+            </p>
+        </div>
     </div>
 
     <script src="script.js"></script>

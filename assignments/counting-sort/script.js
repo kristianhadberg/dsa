@@ -1,3 +1,6 @@
+let listToSort;
+let tickRate = 500; // ms
+
 init();
 
 /* 
@@ -7,8 +10,21 @@ init();
 */
 
 function init() {
-  const list = [5, 4, 5, 1, 0, 1, 3, 1, 8, 9, 12, 16, 10, 12, 16, 11, 15, 4, 9];
-  countingSort(list);
+  const form = document.querySelector("#array-form");
+  const tickRateForm = document.querySelector("#tick-form");
+
+  tickRateForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    tickRate = tickRateForm.tick.valueAsNumber;
+  });
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const inputArray = form.array.value;
+
+    listToSort = inputArray.split(",").map((val) => parseInt(val.trim()));
+    countingSort(listToSort);
+  });
 }
 
 async function countingSort(inputArr) {
@@ -21,6 +37,8 @@ async function countingSort(inputArr) {
   const output = new Array(inputArr.length);
 
   displayArray(countArray, "count-array");
+  removeHiddenClass("input-array");
+  removeHiddenClass("count-array");
   // count the appearences of each number and increment in countArray
   for (let i = 0; i < inputArr.length; i++) {
     const key = inputArr[i];
@@ -28,11 +46,12 @@ async function countingSort(inputArr) {
 
     highlightPillar("input-array", i);
     updateArray(countArray, "count-array");
-    await sleep(500); // used to show algorithm in steps
+    await sleep(tickRate); // used to show algorithm in steps
   }
   clearHighlighedPillars();
 
   displayArray(countArray, "cumulative-array");
+  removeHiddenClass("cumulative-array");
   /* 
     change the count array into a sum array by adding the previous count to it
     after this countArray is used to keep track of the indexes that the values in inputArray
@@ -43,11 +62,12 @@ async function countingSort(inputArr) {
 
     highlightPillar("count-array", i);
     updateArray(countArray, "cumulative-array");
-    await sleep(500);
+    await sleep(tickRate);
   }
   clearHighlighedPillars();
 
   displayArray(output, "output-array");
+  removeHiddenClass("output-array");
   /* 
     loop through input in reverse order to keep the sorting stable (order of items is kept)
     insert the value (key) at the proper index in the output array and decrement the countarray 
@@ -62,7 +82,7 @@ async function countingSort(inputArr) {
     highlightPillar("cumulative-array", key);
 
     updateArray(output, "output-array");
-    await sleep(500);
+    await sleep(tickRate);
   }
   clearHighlighedPillars();
 
@@ -85,7 +105,7 @@ function sleep(time) {
 */
 
 function displayArray(arr, divId) {
-  const arraysElement = document.querySelector(`#${divId}`);
+  const arraysElement = document.querySelector(`#${divId} .array`);
 
   const newDiv = document.createElement("div");
   arraysElement.classList.add("array");
@@ -102,9 +122,9 @@ function displayArray(arr, divId) {
 
     let height = 0;
     if (value == 0) {
-      height = 15;
+      height = 10;
     } else {
-      height = value * 15;
+      height = value * 12;
 
       if (height > 200) {
         height = 200; // make sure no elements are bigger than 200px
@@ -127,7 +147,7 @@ function displayArray(arr, divId) {
 }
 
 function updateArray(arr, divId) {
-  const arraysElement = document.querySelector(`#${divId}`);
+  const arraysElement = document.querySelector(`#${divId} .array`);
   arraysElement.innerHTML = "";
 
   const newDiv = document.createElement("div");
@@ -145,9 +165,9 @@ function updateArray(arr, divId) {
 
     let height = 0;
     if (value == 0) {
-      height = 15;
+      height = 10;
     } else {
-      height = value * 15;
+      height = value * 12;
 
       if (height > 200) {
         height = 200; // make sure no elements are bigger than 200px
@@ -187,4 +207,10 @@ function clearHighlighedPillars() {
   pillars.forEach((p) => {
     p.classList.remove("highlighted-pillar");
   });
+}
+
+// Remove hidden class for the div with the given id
+function removeHiddenClass(divId) {
+  const algElement = document.querySelector(`#${divId}`);
+  algElement.classList.remove("hidden");
 }
