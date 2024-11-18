@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: './assignments/labyrinth-solver'
+          path: './assignments/counting-sort'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
