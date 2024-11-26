@@ -15,7 +15,7 @@ export class Node {
     return this.childNodes[this.childNodes.length - 1];
   }
 
-  hasChildNotes() {
+  hasChildNodes() {
     return this.childNodes.length > 0 ? true : false;
   }
 
